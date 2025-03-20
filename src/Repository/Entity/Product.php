@@ -14,7 +14,7 @@ readonly class Product
         private string $name,
         private string $description,
         private string $thumbnail,
-        private float $price,
+        private int $price,
     ) {
     }
 

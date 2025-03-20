@@ -9,7 +9,7 @@ final readonly class CartItem
     public function __construct(
         public string $uuid,
         public string $productUuid,
-        public float $price,
+        public int $price,
         public int $quantity,
     ) {
     }
