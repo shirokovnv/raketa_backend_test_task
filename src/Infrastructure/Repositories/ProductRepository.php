@@ -5,10 +5,11 @@ declare(strict_types = 1);
 namespace Raketa\BackendTestTask\Infrastructure\Repositories;
 
 use Doctrine\DBAL\Connection;
-use Raketa\BackendTestTask\Infrastructure\Repositories\Entity\Product;
-use Raketa\BackendTestTask\Repository\Exception;
+use Raketa\BackendTestTask\Domain\Entities\Product;
+use Raketa\BackendTestTask\Domain\Repositories\ProductRepositoryInterface;
+use Raketa\BackendTestTask\Infrastructure\Repositories\Exception;
 
-class ProductRepository
+class ProductRepository implements ProductRepositoryInterface
 {
     private Connection $connection;
 
@@ -40,7 +41,7 @@ class ProductRepository
         );
     }
 
-    public function make(array $row): Product
+    private function make(array $row): Product
     {
         return new Product(
             $row['id'],
