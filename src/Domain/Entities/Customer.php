@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\Domain;
+namespace Raketa\BackendTestTask\Domain\Entities;
 
 final readonly class Customer
 {
@@ -10,7 +10,7 @@ final readonly class Customer
         private int $id,
         private string $firstName,
         private string $lastName,
-        private string $middleName,
+        private string $middleName, /** TODO: поле "отчество" не является обязательным для русскоязычного региона */
         private string $email,
     ) {
     }
