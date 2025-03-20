@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\Controller;
+namespace Raketa\BackendTestTask\Infrastructure\Http\Controllers;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Raketa\BackendTestTask\Repository\CartManager;
-use Raketa\BackendTestTask\View\CartView;
+use Raketa\BackendTestTask\Infrastructure\Http\View\CartView;
+use Raketa\BackendTestTask\Infrastructure\Repositories\CartManager;
 
 readonly class GetCartController
 {

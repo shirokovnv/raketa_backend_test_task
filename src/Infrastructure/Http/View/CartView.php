@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\View;
+namespace Raketa\BackendTestTask\Infrastructure\Http\View;
 
 use Raketa\BackendTestTask\Domain\Cart;
-use Raketa\BackendTestTask\Repository\ProductRepository;
+use Raketa\BackendTestTask\Infrastructure\Repositories\ProductRepository;
 
 readonly class CartView
 {
