@@ -6,30 +6,39 @@ namespace Raketa\BackendTestTask\Infrastructure\Http\Controllers;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Raketa\BackendTestTask\Domain\UseCases\GetProductsUseCase;
 use Raketa\BackendTestTask\Infrastructure\Http\View\ProductsView;
 
-readonly class GetProductsController
+readonly class GetProductsController extends AbstractController
 {
     public function __construct(
-        private ProductsView $productsVew
+        private GetProductsUseCase $getProductsUseCase,
+        private ProductsView $productsView
     ) {
     }
 
     public function get(RequestInterface $request): ResponseInterface
     {
-        $response = new JsonResponse();
-
         $rawRequest = json_decode($request->getBody()->getContents(), true);
 
-        $response->getBody()->write(
-            json_encode(
-                $this->productsVew->toArray($rawRequest['category']),
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
-            )
-        );
+        $response = new JsonResponse();
+        $response = $this->withJsonHeaders($response);
 
-        return $response
-            ->withHeader('Content-Type', 'application/json; charset=utf-8')
-            ->withStatus(200);
+        try {
+            $products = $this->getProductsUseCase->process($rawRequest['category']);
+            $response->getBody()->write(
+                json_encode(
+                    $this->productsView->toArray($products),
+                    JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+                )
+            );
+
+            $response = $this->withOkStatus($response);
+
+        } catch (\Exception $exception) {
+            // write info about errors...
+        }
+
+        return $response;
     }
 }

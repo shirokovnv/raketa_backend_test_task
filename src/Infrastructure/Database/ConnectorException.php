@@ -53,8 +53,6 @@ class ConnectorException implements \Throwable
             '[%s] %s in %s on line %d',
             $this->getCode(),
             $this->getMessage(),
-            $this->getFile(),
-            $this->getLine(),
         );
     }
 }

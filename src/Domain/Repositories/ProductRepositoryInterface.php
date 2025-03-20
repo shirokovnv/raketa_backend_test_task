@@ -19,4 +19,12 @@ interface ProductRepositoryInterface
      * @return array<Product>
      */
     public function getByCategory(string $category): array;
+
+    /**
+     * Функция возвращает ассоциативный массив { "uuid" => Product }.
+     *
+     * @param array $uuids
+     * @return array<string, Product>
+     */
+    public function getByUuidList(array $uuids): array;
 }

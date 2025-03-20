@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Raketa\BackendTestTask\Domain\Entities\Product;
 use Raketa\BackendTestTask\Domain\Repositories\ProductRepositoryInterface;
 use Raketa\BackendTestTask\Infrastructure\Repositories\Exception;
+use Raketa\BackendTestTask\Infrastructure\Repositories\Exceptions\ProductNotFoundException;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -18,14 +19,20 @@ class ProductRepository implements ProductRepositoryInterface
         $this->connection = $connection;
     }
 
+    /**
+     * @throws ProductNotFoundException
+     */
     public function getByUuid(string $uuid): Product
     {
-        $row = $this->connection->fetchOne(
-            "SELECT * FROM products WHERE uuid = " . $uuid,
-        );
+        $sql = "SELECT * FROM products WHERE uuid = :uuid";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("uuid", $uuid);
+
+        $resultSet = $stmt->executeQuery();
+        $row = $resultSet->fetchOne();
 
         if (empty($row)) {
-            throw new Exception('Product not found');
+            throw new ProductNotFoundException();
         }
 
         return $this->make($row);
@@ -33,12 +40,21 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getByCategory(string $category): array
     {
+        $sql = "SELECT id FROM products WHERE is_active = 1 AND category = :category";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue("category", $category);
+
+        $resultSet = $stmt->executeQuery();
+
         return array_map(
             static fn (array $row): Product => $this->make($row),
-            $this->connection->fetchAllAssociative(
-                "SELECT id FROM products WHERE is_active = 1 AND category = " . $category,
-            )
+            $resultSet->fetchAllAssociative()
         );
+    }
+
+    public function getByUuidList(array $uuids): array
+    {
+        // TODO: Implement getByUuidList() method.
     }
 
     private function make(array $row): Product
