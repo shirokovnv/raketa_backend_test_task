@@ -7,6 +7,7 @@ create table if not exists products
     description text null comment 'Описание товара',
     thumbnail  varchar(255) null comment 'Ссылка на картинку', /* TODO: теоретически ссылка может быть и длиннее, чем 255 ? */
     price int not null comment 'Цена'
+    /* TODO: Рассмотреть возможность добавления полей `inserted_at`, `updated_at` или использования UUID v7 */
 )
     comment 'Товары';
 
