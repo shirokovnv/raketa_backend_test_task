@@ -7,9 +7,10 @@ namespace Raketa\BackendTestTask\Infrastructure\Repositories;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Raketa\BackendTestTask\Domain\Entities\Cart;
+use Raketa\BackendTestTask\Domain\Repositories\CartManagerInterface;
 use Raketa\BackendTestTask\Infrastructure\Database\ConnectorInterface;
 
-class CartManager extends ConnectorFacade
+class CartManager implements CartManagerInterface
 {
     /**
      * Период сохранения корзины.

@@ -28,6 +28,7 @@ final class RedisConnector implements ConnectorInterface
      */
     public function get(Cart $key)
     {
+        // TODO: unserialize необходимо заменить на более эффективный формат сериализации, напр. в JSON.
         try {
             return unserialize($this->redis->get($key));
         } catch (RedisException $e) {
@@ -40,6 +41,7 @@ final class RedisConnector implements ConnectorInterface
      */
     public function set(string $key, Cart $value, int $ttl)
     {
+        // TODO: serialize необходимо заменить на более эффективный формат сериализации, напр. в JSON.
         try {
             $this->redis->setex($key, $ttl, serialize($value));
         } catch (RedisException $e) {

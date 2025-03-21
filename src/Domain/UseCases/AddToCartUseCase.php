@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Raketa\BackendTestTask\Domain\UseCases;
 
 use Raketa\BackendTestTask\Domain\DataTransferObjects\CartDto;
-use Raketa\BackendTestTask\Domain\Entities\Cart;
 use Raketa\BackendTestTask\Infrastructure\Repositories\CartManager;
 use Raketa\BackendTestTask\Infrastructure\Repositories\ProductRepository;
 
