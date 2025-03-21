@@ -55,6 +55,7 @@ final class RedisConnector implements ConnectorInterface
     }
 
     private function initializeRedis() {
+        // TODO: возможно, необходимо разделение инициализации Redis и проверки коннекта к нему.
         $this->redis = new Redis();
 
         try {
