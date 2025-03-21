@@ -2,25 +2,19 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\Repository\Entity;
+namespace Raketa\BackendTestTask\Domain\Entities;
 
 readonly class Product
 {
     public function __construct(
-        private int $id,
         private string $uuid,
         private bool $isActive,
         private string $category,
         private string $name,
         private string $description,
         private string $thumbnail,
-        private float $price,
+        private int $price,
     ) {
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getUuid(): string

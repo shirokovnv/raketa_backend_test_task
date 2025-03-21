@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace Raketa\BackendTestTask\Domain;
+namespace Raketa\BackendTestTask\Domain\Entities;
 
 final readonly class CartItem
 {
     public function __construct(
-        public string $uuid,
-        public string $productUuid,
-        public float $price,
-        public int $quantity,
+        private string $uuid,
+        private string $productUuid,
+        private int $price,
+        private int $quantity,
     ) {
     }
 
@@ -24,7 +24,7 @@ final readonly class CartItem
         return $this->productUuid;
     }
 
-    public function getPrice(): float
+    public function getPrice(): int
     {
         return $this->price;
     }
