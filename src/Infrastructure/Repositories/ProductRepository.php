@@ -60,7 +60,6 @@ class ProductRepository implements ProductRepositoryInterface
     private function make(array $row): Product
     {
         return new Product(
-            $row['id'],
             $row['uuid'],
             $row['is_active'],
             $row['category'],
